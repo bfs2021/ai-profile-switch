@@ -76,3 +76,12 @@ export function removeProfileFromMeta(name) {
   }
   writeMeta(meta);
 }
+
+// Claude Code forgets that a server needs a sign-in only when a session connects to it,
+// so cpf remembers the sign-ins it ran. Profiles that no longer exist are dropped.
+export function recordMcpLogin(profile, server, at = Date.now()) {
+  const meta = readMeta();
+  const logins = Object.fromEntries(Object.entries(meta.mcpLogins ?? {}).filter(([name]) => meta.profiles.includes(name)));
+  logins[profile] = { ...logins[profile], [server]: at };
+  writeMeta({ ...meta, mcpLogins: logins });
+}

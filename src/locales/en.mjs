@@ -2,10 +2,9 @@
 export default {
   'time.justNow': 'just now',
 
-  'prompt.keys': '{arrows} move · Enter select · Esc cancel',
-  'prompt.keysNumbered': '{arrows} move · 1-{max} pick · Enter select · Esc cancel',
-  'prompt.keysBack': '{arrows} move · Enter select · Esc back',
-  'prompt.keysNumberedBack': '{arrows} move · 1-{max} pick · Enter select · Esc back',
+  'prompt.keys': 'Enter select · Esc cancel',
+  'prompt.keysBack': 'Enter select · Esc back',
+  'prompt.keysMulti': 'Space choose · Enter confirm · Esc back',
   'prompt.cancelled': 'cancelled',
   'prompt.yes': 'Yes',
   'prompt.no': 'No',
@@ -13,10 +12,14 @@ export default {
   'common.none': 'none',
 
   'picker.question': 'Which profile do you want to use?',
-  'picker.inUse': 'in use',
   'picker.starting': 'Starting with {profile}',
   'picker.switched': 'Now using {profile}',
-  'launch.opening': 'Opening Claude Code…',
+  'picker.keys': 'Enter start · → details · Esc cancel',
+  'picker.keysSwitch': 'Enter switch · → details · Esc cancel',
+  'picker.needsLogin': 'Sign-in needed: {names}',
+  'picker.fixHere': '→ to do it here',
+  'picker.signInOnStart': 'Claude asks you to sign in when it starts',
+  'picker.usageAt': 'Usage as of {time}',
   'launch.notFound': 'Claude Code was not found on this computer.',
   'launch.install': 'Install it:',
   'launch.startFailed': 'Could not start Claude Code: {message}',
@@ -24,9 +27,9 @@ export default {
 
   'account.fiveHour': '5-hour',
   'account.weekly': 'Weekly',
-  'account.noUsage': 'No usage saved yet',
   'account.savedAt': 'as of {time}',
   'account.notSignedIn': 'Not signed in yet',
+  'account.signedOut': 'not signed in',
 
   'profile.empty': 'Profile name cannot be empty',
   'profile.tooLong': 'Profile name must be {max} characters or fewer',
@@ -85,6 +88,19 @@ export default {
   'share.needsSettings': 'Sharing needs shared settings. This setup keeps each profile separate.',
   'share.already': '"{entry}" is already shared',
   'share.notShared': '"{entry}" is not shared',
+  'share.menu': 'Sharing',
+  'share.menuNote': 'every profile uses what is on',
+  'share.menuAlways': 'Settings and commands are always shared. MCP servers stay with each account.',
+  'share.menuKeys': 'Space on or off · Enter apply · Esc cancel',
+  'entry.CLAUDE.md': 'CLAUDE.md',
+  'entry.skills': 'Skills',
+  'entry.output-styles': 'Output styles',
+  'entry.agents': 'Agents',
+  'entry.rules': 'Rules',
+  'entry.hooks': 'Hooks',
+  'entry.keybindings.json': 'Key bindings',
+  'entry.workflows': 'Workflows',
+  'entry.themes': 'Themes',
 
   'list.title': 'Profiles:',
   'list.active': 'Active: {name}',
@@ -145,31 +161,44 @@ export default {
   'init.openTerminal': 'Open a new terminal and run {command}. Claude will ask you to sign in if needed.',
   'init.otherProfile': 'To use another profile:',
 
-  'menu.question': 'What do you want to do?',
-  'menu.current': 'Current: {name}',
-  'menu.use': 'Switch profile',
-  'menu.add': 'Add a profile',
-  'menu.removeHint': 'asks first',
-  'menu.share': 'Shared settings',
-  'menu.language': 'Language',
-  'menu.exit': 'Exit',
-  'menu.manage': 'Manage profiles',
-  'menu.manageHint': 'rename, sign-in, delete',
-  'menu.usePick': 'Which profile do you want to switch to?',
-  'menu.managePick': 'Which profile do you want to manage?',
-  'detail.title': '{name} profile',
-  'detail.account': 'Signed in',
+  'home.question': 'Profiles',
+  'home.add': 'Add a profile',
+  'home.addName': 'New profile name (empty to cancel):',
+  'home.settings': 'Settings',
+  'home.settingsHint': 'sharing · language',
+  'home.keys': 'Enter details · Esc quit',
+  'settings.title': 'Settings',
+  'settings.share': 'Sharing',
+  'settings.shareNone': 'settings and commands only',
+  'settings.language': 'Language',
   'detail.usage': 'Usage',
-  'detail.lastUsed': 'Last used',
-  'detail.folder': 'Folder',
-  'detail.never': 'not yet',
   'detail.noUsage': 'none saved yet',
+  'detail.resetsAt': 'resets {time}',
+  'detail.connections': 'Connected',
   'detail.use': 'Use this profile',
+  'detail.signInTo': 'Sign in to {names}',
+  'detail.signInToHint': 'just allow it in the browser',
+  'detail.import': 'Bring over from another profile',
+  'detail.importHint': '{what} in {from}',
+  'detail.importNone': 'same as the others',
   'detail.rename': 'Rename',
-  'detail.login': 'Change sign-in',
-  'detail.loginHint': 'sign in with another Claude account',
+  'detail.login': 'Change Claude account',
   'detail.remove': 'Delete',
-  'detail.back': 'Back',
+  'import.nothing': 'Other profiles have no plugins or MCP servers that this one lacks.',
+  'import.which': 'Bring over from which profile?',
+  'import.title': 'Bring over from {from}',
+  'import.missing': '{what} that {name} does not have',
+  'import.plugin': 'plugin',
+  'import.server': 'MCP server',
+  'import.claudeAi': 'claude.ai connectors such as Gmail or Drive are turned on for each account at claude.ai.',
+  'import.keys': 'Space choose · Enter bring over · Esc back',
+  'import.failed': 'exit code {code}',
+  'import.done': 'Brought over {count}. They are ready the next time you open Claude with this profile.',
+  'import.none': 'Nothing was brought over.',
+  'count.plugins': '{count} plugins',
+  'count.pluginsOne': '{count} plugin',
+  'count.servers': '{count} MCP servers',
+  'count.serversOne': '{count} MCP server',
   'rename.newName': 'New name',
   'rename.newNameHint': 'now: {name} · empty to cancel',
   'rename.confirm': 'Rename {old} to {new}?',
@@ -188,11 +217,15 @@ export default {
   'login.failed': 'Sign-in did not finish (exit code {code}).',
   'login.usageLater': 'Usage shows again after you use Claude with this profile.',
   'login.usage': 'Usage: cpf login <name>',
+  'mcpLogin.browser': 'A browser opens for each one. Just allow it.',
+  'mcpLogin.done': 'Signed in to {server}',
+  'mcpLogin.failed': 'Could not sign in to {server}',
+  'mcpLogin.next': 'It connects the next time you open Claude with this profile.',
+  'mcpLogin.none': 'Nothing was signed in.',
   'index.helpLogin': 'Runs claude auth login for that profile only. Other profiles stay signed in.',
-  'menu.addName': 'New profile name (empty to cancel):',
   'manage.invalid': 'Invalid arguments. Run cpf --help for usage.',
   'manage.help': `Usage:
-  cpf                         Open the menu
+  cpf                         Open the profile list
   cpf <name>                  Switch to a profile
   cpf --list                  List profiles and the active one
   cpf add <name>              Create a profile
@@ -238,7 +271,7 @@ Without the shell commands, use: npx ai-profile-switch@latest manage [arguments]
 
   Everyday commands (in your terminal, after setup):
     claude                     Pick a profile and start Claude Code
-    cpf                        Open the menu
+    cpf                        Open the profile list
     cpf work                   Switch to an existing profile
     cpf --help                 Show the short commands
 
@@ -252,7 +285,7 @@ Without the shell commands, use: npx ai-profile-switch@latest manage [arguments]
     login <name>               Sign a profile in to another Claude account
     list                       List profiles
     use <name>                 Change the active profile
-    manage                     Open the same menu as cpf
+    manage                     Open the same profile list as cpf
     language [auto|en|ko]      Choose the screen language
     install-shell              Install or repair the claude and cpf commands
     migrate [name]             Copy existing Claude settings (--from <path>)

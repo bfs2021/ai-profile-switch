@@ -53,6 +53,7 @@ export const sym = {
   bulletOn:  supportsUnicode ? '●' : '*',
   bulletOff: supportsUnicode ? '○' : 'o',
   dash:      supportsUnicode ? '──' : '--',
+  none:      supportsUnicode ? '–' : '-',
   arrows:    supportsUnicode ? '↑↓' : 'Up/Down',
   // Left rail that groups one flow: ┌ start, │ body, ◆ question, ◇ answered, └ end.
   railTop:   supportsUnicode ? '┌' : '+',
@@ -62,6 +63,9 @@ export const sym = {
   stepDone:  supportsUnicode ? '◇' : 'o',
   barOn:     supportsUnicode ? '▰' : '#',
   barOff:    supportsUnicode ? '▱' : '-',
+  boxOn:     supportsUnicode ? '◼' : '[x]',
+  boxOff:    supportsUnicode ? '◻' : '[ ]',
+  spinner:   supportsUnicode ? '⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏' : '-\\|/',
 };
 
 export function success(msg) {
@@ -111,4 +115,9 @@ export function stripAnsi(s) {
 export function displayWidth(text) {
   return [...stripAnsi(text)].reduce((width, char) => width
     + (/[\u1100-\u115f\u2e80-\ua4cf\uac00-\ud7a3\uf900-\ufaff\uff00-\uff60]/.test(char) ? 2 : 1), 0);
+}
+
+// Pads colored text to a column width.
+export function pad(text, width) {
+  return text + ' '.repeat(Math.max(0, width - displayWidth(text)));
 }

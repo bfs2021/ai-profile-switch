@@ -25,6 +25,8 @@ Object.assign(process.env, {
   npm_config_globalconfig: join(testRoot, 'npmrc-global'), npm_config_offline: 'true',
   GIT_CONFIG_GLOBAL: join(testRoot, 'gitconfig'), GIT_CONFIG_NOSYSTEM: '1',
   CLAUDE_SWITCH_DISABLE_AUTO_UPDATE: '1', NO_COLOR: '1',
+  // Usage is never asked from Anthropic, and the Keychain is never read.
+  CPF_LIVE_USAGE: '0',
   // Screens are checked in English; language detection has its own tests.
   AI_PROFILE_SWITCH_LANG: 'en',
 });

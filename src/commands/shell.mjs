@@ -6,8 +6,10 @@ import { getActiveProfile, setActiveProfile } from '../lib/config.mjs';
 import { HOME, IS_WINDOWS } from '../lib/constants.mjs';
 import { installAllShells } from '../lib/shell.mjs';
 import { listProfiles, profileDir, assertRegisteredProfile } from '../lib/profile.mjs';
-import { color, colorFor, intro, meter, outro, success, sym, userError, warn } from '../lib/ui.mjs';
+import { color, colorFor, displayWidth, meter, pad, stripAnsi, success, sym, userError, warn } from '../lib/ui.mjs';
 import { accountInfo } from '../lib/account.mjs';
+import { connections } from '../lib/connections.mjs';
+import { liveUsage } from '../lib/live-usage.mjs';
 import { relativeTime, t } from '../lib/i18n.mjs';
 import { syncShared } from '../lib/shared.mjs';
 import { reportConflicts } from './share.mjs';
@@ -36,13 +38,19 @@ export async function shell(argv = []) {
       if (args.length && (args.length !== 1 || args[0] !== '--print')) throw new Error('Usage: shell pick [--print]');
       await pickProfile(args[0] === '--print');
       return;
+    case 'detail': {
+      if (args.length !== 1) throw new Error('Usage: shell detail <name>');
+      const { showProfile } = await import('./manage.mjs');
+      await showProfile(args[0]);
+      return;
+    }
     case 'refresh':
       if (args.length) throw new Error('Usage: shell refresh');
       installAllShells();
       success(t('shell.refreshed'));
       return;
     default:
-      throw new Error('Usage: shell <launch|use|pick|refresh>');
+      throw new Error('Usage: shell <launch|use|pick|detail|refresh>');
   }
 }
 
@@ -115,31 +123,65 @@ export function accountSummary({ email, plan }) {
   return [email, plan].filter(Boolean).join(' · ');
 }
 
-export function usageLine({ usage }) {
-  if (!usage) return color.dim(t('account.noUsage'));
-  const parts = [];
-  if (usage.fiveHour !== null) parts.push(`${t('account.fiveHour')} ${meter(usage.fiveHour)}`);
-  if (usage.weekly !== null) parts.push(`${t('account.weekly')} ${meter(usage.weekly)}`);
-  if (usage.savedAt) parts.push(color.dim(t('account.savedAt', { time: relativeTime(usage.savedAt) })));
-  return parts.join('   ');
+const METER_WIDTH = 12;
+
+// Two small meters; usage Claude saved earlier is dim until the current value arrives.
+function usageCells(usage) {
+  const cell = (percent) => {
+    if (percent === null || percent === undefined) return pad(color.dim(`  ${sym.none}`), METER_WIDTH);
+    const bar = meter(percent, 5);
+    return pad(usage.live ? bar : color.dim(stripAnsi(bar)), METER_WIDTH);
+  };
+  return `${cell(usage?.fiveHour)}${cell(usage?.weekly)}`;
 }
 
-// One picker row per profile: name, in use or last used, then account and usage lines.
-export function profileChoices(profiles, active) {
-  const width = Math.max(...profiles.map(name => name.length));
-  return profiles.map(name => profileChoice(name, active, width));
+// One row per profile: name (● for the one in use), email, 5-hour and weekly usage, and a
+// yellow ! when an MCP server waits for a sign-in. columns heads the usage meters.
+export function profileRows(profiles, active, live = {}) {
+  const rows = profiles.map(name => ({ name, account: accountInfo(name, live[name]), needsLogin: connections(name).needsLogin }));
+  const emailWidth = Math.max(0, ...rows.map(({ account }) => displayWidth(account.email ?? t('account.signedOut'))));
+  const choices = rows.map(({ name, account, needsLogin }) => {
+    const email = pad(account.email ?? color.dim(t('account.signedOut')), emailWidth);
+    const meters = account.email ? usageCells(account.usage) : ' '.repeat(METER_WIDTH * 2);
+    const flag = needsLogin.length ? color.yellow('!') : '';
+    return {
+      label: name === active ? `${name} ${color.green(sym.bulletOn)}` : name,
+      value: name,
+      hint: `${email}  ${meters}${flag}`.replace(/ +$/, ''),
+      account,
+      needsLogin,
+    };
+  });
+  const columns = rows.some(({ account }) => account.email)
+    ? color.dim(`${' '.repeat(emailWidth + 2)}${pad(t('account.fiveHour'), METER_WIDTH)}${t('account.weekly')}`)
+    : undefined;
+  return { choices, columns };
 }
 
-function profileChoice(name, active, width) {
-  const account = accountInfo(name);
-  const hint = name === active
-    ? color.green(`${sym.bulletOn} ${t('picker.inUse')}`)
-    : account.lastUsed ? color.dim(relativeTime(account.lastUsed)) : '';
-  const summary = accountSummary(account);
-  const details = summary
-    ? [color.dim(summary), usageLine(account)]
-    : [color.dim(t('account.notSignedIn'))];
-  return { label: name.padEnd(width), value: name, hint, details, summary };
+// The line under the list about the highlighted profile. While current usage is still
+// coming, the note about saved usage would only flash, so it waits.
+export function profileFooter(choice, { picker = false, loading = false } = {}) {
+  if (!choice?.account) return '';
+  const { account, needsLogin } = choice;
+  if (needsLogin.length) {
+    const fix = picker ? `  ${color.dim(t('picker.fixHere'))}` : '';
+    return `${color.yellow(`! ${t('picker.needsLogin', { names: needsLogin.join('·') })}`)}${fix}`;
+  }
+  if (!account.email) return color.dim(t('picker.signInOnStart'));
+  if (!loading && account.usage?.savedAt && !account.usage.live) {
+    return color.dim(t('picker.usageAt', { time: relativeTime(account.usage.savedAt) }));
+  }
+  return '';
+}
+
+// The claude function reads the picked profile from stdout, so the profile screen runs
+// as its own process and draws on the terminal through stderr.
+function openProfile(name) {
+  return new Promise(resolve => {
+    const child = spawn(process.execPath, [process.argv[1], 'shell', 'detail', name], { stdio: [0, 2, 2] });
+    child.once('error', resolve);
+    child.once('close', resolve);
+  });
 }
 
 async function selectProfile({ launching = false } = {}) {
@@ -150,11 +192,10 @@ async function selectProfile({ launching = false } = {}) {
       { label: t('hint.setup'), command: 'npx ai-profile-switch@latest init' },
     ]);
   }
-  const active = getActiveProfile();
   const output = process.stderr;
   colorFor(output);
   if (!process.stdin.isTTY || profiles.length === 1) {
-    const selected = active ?? profiles[0];
+    const selected = getActiveProfile() ?? profiles[0];
     assertRegisteredProfile(selected);
     if (launching && output.isTTY) {
       const summary = accountSummary(accountInfo(selected));
@@ -162,19 +203,33 @@ async function selectProfile({ launching = false } = {}) {
     }
     return selected;
   }
-  const choices = profileChoices(profiles, active);
-  intro('ai-profile-switch', '', output);
-  const selected = await prompt.select(t('picker.question'), choices, {
-    output, initial: profiles.indexOf(active), numbered: true,
-    done: name => {
-      const { summary } = choices.find(choice => choice.value === name);
-      const message = t(launching ? 'picker.starting' : 'picker.switched', { profile: color.bold(name) });
-      return `${message}${summary ? `  ${color.dim(summary)}` : ''}`;
-    },
-  });
-  outro(selected && launching ? t('launch.opening') : '', output);
-  if (selected) assertRegisteredProfile(selected);
-  return selected;
+  let cursor = getActiveProfile();
+  while (true) {
+    const names = listProfiles();
+    if (!names.length) throw userError(t('profiles.none'), [{ label: t('hint.add'), command: 'cpf add work' }]);
+    const active = getActiveProfile();
+    const stop = new AbortController();
+    const { choices, columns } = profileRows(names, active);
+    const picked = await prompt.select(t('picker.question'), choices, {
+      output, numbered: true, columns, initial: Math.max(0, names.indexOf(cursor)),
+      refresh: columns && liveUsage(names, { signal: stop.signal }).then(live => ({ choices: profileRows(names, active, live).choices })),
+      footer: (choice, loading) => profileFooter(choice, { picker: true, loading }),
+      keys: t(launching ? 'picker.keys' : 'picker.keysSwitch'),
+      onRight: name => ({ open: name }),
+      done: (name) => {
+        const summary = accountSummary(accountInfo(name));
+        const message = t(launching ? 'picker.starting' : 'picker.switched', { profile: color.bold(name) });
+        return `${message}${summary ? `  ${color.dim(summary)}` : ''}`;
+      },
+    });
+    stop.abort();
+    if (!picked?.open) {
+      if (picked) assertRegisteredProfile(picked);
+      return picked;
+    }
+    cursor = picked.open;
+    await openProfile(cursor);
+  }
 }
 
 // Declared below; the Windows resolver test runs that part on its own.

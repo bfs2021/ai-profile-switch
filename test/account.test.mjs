@@ -26,7 +26,7 @@ describe('account info', () => {
     const info = accountInfo('full');
     assert.equal(info.email, 'kim@company.test');
     assert.equal(info.plan, 'Max');
-    assert.deepEqual(info.usage, { fiveHour: 28, weekly: 100, savedAt: 1000 });
+    assert.deepEqual(info.usage, { fiveHour: 28, weekly: 100, fiveHourResetsAt: null, weeklyResetsAt: null, savedAt: 1000 });
     assert.equal(typeof info.lastUsed, 'number');
   });
 
@@ -52,7 +52,7 @@ describe('account info', () => {
 
   it('keeps one usage window when the other is missing', () => {
     profile('partial', { cachedUsageUtilization: { utilization: { seven_day: { utilization: 61 } } } });
-    assert.deepEqual(accountInfo('partial').usage, { fiveHour: null, weekly: 61, savedAt: null });
+    assert.deepEqual(accountInfo('partial').usage, { fiveHour: null, weekly: 61, fiveHourResetsAt: null, weeklyResetsAt: null, savedAt: null });
   });
 
   it('drops usage saved for a different account', () => {
@@ -61,6 +61,30 @@ describe('account info', () => {
       cachedUsageUtilization: { accountUuid: 'old', utilization: { five_hour: { utilization: 90 } } },
     });
     assert.equal(accountInfo('switched').usage, null);
+  });
+
+  it('prefers live usage and falls back to the cache when it has no windows', () => {
+    profile('live', {
+      cachedUsageUtilization: { fetchedAtMs: 1000, utilization: { five_hour: { utilization: 10 } } },
+    });
+    assert.deepEqual(accountInfo('live', { five_hour: { utilization: 54.6 }, seven_day: { utilization: 12 } }).usage,
+      { fiveHour: 55, weekly: 12, fiveHourResetsAt: null, weeklyResetsAt: null, savedAt: null, live: true });
+    assert.deepEqual(accountInfo('live', { five_hour: null }).usage,
+      { fiveHour: 10, weekly: null, fiveHourResetsAt: null, weeklyResetsAt: null, savedAt: 1000 });
+  });
+
+  it('reads when each window resets and drops a saved window that already reset', () => {
+    const later = new Date(Date.now() + 3600000).toISOString();
+    const earlier = new Date(Date.now() - 60000).toISOString();
+    profile('resets', {
+      cachedUsageUtilization: { fetchedAtMs: 1000, utilization: {
+        five_hour: { utilization: 70, resets_at: earlier }, seven_day: { utilization: 20, resets_at: later },
+      } },
+    });
+    assert.deepEqual(accountInfo('resets').usage,
+      { fiveHour: null, weekly: 20, fiveHourResetsAt: null, weeklyResetsAt: Date.parse(later), savedAt: 1000 });
+    assert.deepEqual(accountInfo('resets', { five_hour: { utilization: 3, resets_at: later }, seven_day: { utilization: 21, resets_at: 'soon' } }).usage,
+      { fiveHour: 3, weekly: 21, fiveHourResetsAt: Date.parse(later), weeklyResetsAt: null, savedAt: null, live: true });
   });
 
   it('does not change the file it reads', () => {

@@ -39,7 +39,7 @@ const USAGE = {
   language: 'language [auto | en | ko]',
   mcp: 'mcp [list]',
   update: 'update [--check] [--self] [--claude-code] [--yes]',
-  shell: 'shell <launch|use|pick|refresh>',
+  shell: 'shell <launch|use|pick|detail|refresh>',
 };
 const POSITIONAL_COUNTS = { init: 0, add: 1, remove: 1, rename: 2, login: 1, list: 0, use: 1, 'install-shell': 0 };
 

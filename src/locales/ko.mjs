@@ -2,10 +2,9 @@
 export default {
   'time.justNow': '방금',
 
-  'prompt.keys': '{arrows} 이동 · Enter 선택 · Esc 취소',
-  'prompt.keysNumbered': '{arrows} 이동 · 1-{max} 바로 선택 · Enter 선택 · Esc 취소',
-  'prompt.keysBack': '{arrows} 이동 · Enter 선택 · Esc 뒤로',
-  'prompt.keysNumberedBack': '{arrows} 이동 · 1-{max} 바로 선택 · Enter 선택 · Esc 뒤로',
+  'prompt.keys': 'Enter 선택 · Esc 취소',
+  'prompt.keysBack': 'Enter 선택 · Esc 뒤로',
+  'prompt.keysMulti': 'Space 고르기 · Enter 확인 · Esc 뒤로',
   'prompt.cancelled': '취소했어요',
   'prompt.yes': '예',
   'prompt.no': '아니요',
@@ -13,10 +12,14 @@ export default {
   'common.none': '없음',
 
   'picker.question': '어떤 프로필로 시작할까요?',
-  'picker.inUse': '사용 중',
   'picker.starting': '{profile} 프로필로 시작해요',
   'picker.switched': '이제 {profile} 프로필을 써요',
-  'launch.opening': 'Claude Code 를 여는 중…',
+  'picker.keys': 'Enter 시작 · → 자세히 · Esc 취소',
+  'picker.keysSwitch': 'Enter 바꾸기 · → 자세히 · Esc 취소',
+  'picker.needsLogin': '{names} 로그인이 필요해요',
+  'picker.fixHere': '→ 에서 바로 할 수 있어요',
+  'picker.signInOnStart': '시작하면 Claude 가 로그인을 물어봐요',
+  'picker.usageAt': '사용량은 {time} 값이에요',
   'launch.notFound': '이 컴퓨터에서 Claude Code 를 찾지 못했어요.',
   'launch.install': '설치 안내:',
   'launch.startFailed': 'Claude Code 를 시작하지 못했어요: {message}',
@@ -24,9 +27,9 @@ export default {
 
   'account.fiveHour': '5시간',
   'account.weekly': '주간',
-  'account.noUsage': '아직 저장된 사용량 없음',
   'account.savedAt': '{time} 기준',
   'account.notSignedIn': '아직 로그인하지 않았어요',
+  'account.signedOut': '로그인 안 함',
 
   'profile.empty': '프로필 이름을 적어 주세요',
   'profile.tooLong': '프로필 이름은 {max}자 이하로 적어 주세요',
@@ -85,6 +88,19 @@ export default {
   'share.needsSettings': '이 설정은 프로필마다 따로 쓰도록 되어 있어 나눌 수 없어요.',
   'share.already': '"{entry}" 은(는) 이미 같이 쓰고 있어요',
   'share.notShared': '"{entry}" 은(는) 같이 쓰고 있지 않아요',
+  'share.menu': '같이 쓰기',
+  'share.menuNote': '켠 것은 모든 프로필이 함께 써요',
+  'share.menuAlways': '설정·명령은 늘 같이 써요. MCP 서버는 계정마다 따로라 여기 없어요.',
+  'share.menuKeys': 'Space 켜기·끄기 · Enter 적용 · Esc 취소',
+  'entry.CLAUDE.md': 'CLAUDE.md',
+  'entry.skills': '스킬',
+  'entry.output-styles': '출력 스타일',
+  'entry.agents': '에이전트',
+  'entry.rules': '규칙',
+  'entry.hooks': '훅',
+  'entry.keybindings.json': '단축키',
+  'entry.workflows': '워크플로',
+  'entry.themes': '테마',
 
   'list.title': '프로필 목록',
   'list.active': '지금 프로필: {name}',
@@ -145,31 +161,44 @@ export default {
   'init.openTerminal': '새 터미널을 열고 {command} 를 실행하세요. 필요하면 Claude 가 로그인을 물어봐요.',
   'init.otherProfile': '다른 프로필로 하려면:',
 
-  'menu.question': '무엇을 할까요?',
-  'menu.current': '지금 프로필: {name}',
-  'menu.use': '프로필 바꾸기',
-  'menu.add': '프로필 추가하기',
-  'menu.removeHint': '확인 후 지워요',
-  'menu.share': '같이 쓰는 설정 보기',
-  'menu.language': '화면 언어',
-  'menu.exit': '나가기',
-  'menu.manage': '프로필 관리하기',
-  'menu.manageHint': '이름·로그인 계정·지우기',
-  'menu.usePick': '어느 프로필로 바꿀까요?',
-  'menu.managePick': '어느 프로필을 관리할까요?',
-  'detail.title': '{name} 프로필',
-  'detail.account': '로그인 계정',
+  'home.question': '프로필',
+  'home.add': '프로필 추가',
+  'home.addName': '새 프로필 이름 (비우면 취소):',
+  'home.settings': '설정',
+  'home.settingsHint': '같이 쓰기 · 화면 언어',
+  'home.keys': 'Enter 자세히 · Esc 나가기',
+  'settings.title': '설정',
+  'settings.share': '같이 쓰기',
+  'settings.shareNone': '설정·명령만',
+  'settings.language': '화면 언어',
   'detail.usage': '사용량',
-  'detail.lastUsed': '마지막 사용',
-  'detail.folder': '폴더',
-  'detail.never': '아직 안 씀',
   'detail.noUsage': '아직 저장된 값 없음',
+  'detail.resetsAt': '{time} 초기화',
+  'detail.connections': '연결',
   'detail.use': '이 프로필로 바꾸기',
+  'detail.signInTo': '{names} 로그인하기',
+  'detail.signInToHint': '브라우저에서 허용만 누르면 돼요',
+  'detail.import': '다른 프로필에서 가져오기',
+  'detail.importHint': '{from} 에 {what}',
+  'detail.importNone': '다른 프로필과 같아요',
   'detail.rename': '이름 바꾸기',
-  'detail.login': '로그인 계정 바꾸기',
-  'detail.loginHint': '다른 Claude 계정으로 다시 로그인',
+  'detail.login': 'Claude 계정 바꾸기',
   'detail.remove': '지우기',
-  'detail.back': '뒤로',
+  'import.nothing': '다른 프로필에만 있는 플러그인·MCP 서버가 없어요.',
+  'import.which': '어느 프로필에서 가져올까요?',
+  'import.title': '{from} 에서 가져오기',
+  'import.missing': '{name} 에 없는 {what}',
+  'import.plugin': '플러그인',
+  'import.server': 'MCP 서버',
+  'import.claudeAi': 'Gmail·Drive 같은 claude.ai 연결은 claude.ai 에서 계정마다 켜요.',
+  'import.keys': 'Space 고르기 · Enter 가져오기 · Esc 뒤로',
+  'import.failed': '종료 코드 {code}',
+  'import.done': '{count}개를 가져왔어요. 다음에 이 프로필로 Claude 를 열면 써요.',
+  'import.none': '아무것도 가져오지 못했어요.',
+  'count.plugins': '플러그인 {count}개',
+  'count.pluginsOne': '플러그인 {count}개',
+  'count.servers': 'MCP 서버 {count}개',
+  'count.serversOne': 'MCP 서버 {count}개',
   'rename.newName': '새 이름을 적어 주세요',
   'rename.newNameHint': '지금: {name} · 비우면 취소',
   'rename.confirm': '{old} → {new} 로 바꿀까요?',
@@ -188,11 +217,15 @@ export default {
   'login.failed': '로그인을 마치지 못했어요 (종료 코드 {code}).',
   'login.usageLater': '사용량은 이 프로필로 Claude 를 한 번 쓰면 다시 보여요.',
   'login.usage': '사용법: cpf login <이름>',
+  'mcpLogin.browser': '브라우저가 차례로 열려요. 허용만 누르면 돼요.',
+  'mcpLogin.done': '{server} 로그인됐어요',
+  'mcpLogin.failed': '{server} 로그인을 마치지 못했어요',
+  'mcpLogin.next': '다음에 이 프로필로 Claude 를 열면 연결돼요.',
+  'mcpLogin.none': '로그인하지 않았어요.',
   'index.helpLogin': '그 프로필만 claude auth login 으로 다시 로그인해요. 다른 프로필은 그대로예요.',
-  'menu.addName': '새 프로필 이름 (비우면 취소):',
   'manage.invalid': '명령을 알아듣지 못했어요. cpf --help 로 사용법을 보세요.',
   'manage.help': `사용법:
-  cpf                         메뉴 열기
+  cpf                         프로필 목록 열기
   cpf <이름>                  그 프로필로 바꾸기
   cpf --list                  프로필 목록과 지금 프로필
   cpf add <이름>              프로필 만들기
@@ -238,7 +271,7 @@ claude 를 실행하면 프로필을 골라 Claude Code 를 시작해요.
 
   평소에 쓰는 명령 (설정 후 터미널에서):
     claude                     프로필을 골라 Claude Code 시작
-    cpf                        메뉴 열기
+    cpf                        프로필 목록 열기
     cpf work                   있는 프로필로 바꾸기
     cpf --help                 짧은 명령 보기
 
@@ -252,7 +285,7 @@ claude 를 실행하면 프로필을 골라 Claude Code 를 시작해요.
     login <이름>               그 프로필의 로그인 계정 바꾸기
     list                       프로필 목록
     use <이름>                 지금 프로필 바꾸기
-    manage                     cpf 와 같은 메뉴 열기
+    manage                     cpf 와 같은 프로필 목록 열기
     language [auto|en|ko]      화면 언어 고르기
     install-shell              claude·cpf 명령 설치·고치기
     migrate [이름]             지금 Claude 설정 가져오기 (--from <경로>)
