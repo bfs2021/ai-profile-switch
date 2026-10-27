@@ -7,7 +7,7 @@ Keep several Claude Code accounts on one machine, such as work and personal, and
 
 [한국어](./README.ko.md) · [Full guide](https://ftery0.github.io/ai-profile-switch/guide/)
 
-![Run claude and pick a profile, switch with cpf, and share CLAUDE.md with cpf share](https://raw.githubusercontent.com/ftery0/ai-profile-switch/main/docs/assets/demo.gif)
+![The profile list that opens when you run claude, with each profile's email and its 5-hour and weekly usage](https://raw.githubusercontent.com/ftery0/ai-profile-switch/main/website/public/screens/en/launch.svg)
 
 Formerly `claude-account-switch`. See [existing users](#existing-users).
 
@@ -28,16 +28,17 @@ Run these at the terminal prompt. If you are in the Claude chat, enter `/exit` f
 | Command | What it does |
 | --- | --- |
 | `claude` | Pick an account and start Claude Code with it |
-| `cpf` | Open a menu to switch or add profiles. **Manage profiles** shows each one's sign-in and usage, and renames, re-signs, or deletes it |
-| `cpf work` | Make `work` active without starting Claude |
-| `cpf --list` | Show profiles and the active one |
+| `cpf` | The profile list. Pick a profile to see its usage and MCP connections, sign in, bring things over, rename, or delete |
+| `cpf work` | Make `work` the default profile without starting Claude |
+| `cpf --list` | Show profiles and the default one |
 | `cpf add work2` | Create a profile. Then run `claude`, pick it, and sign in |
 | `cpf rename wrok2 work2` | Rename a profile. Close its Claude sessions first |
 | `cpf remove work2` | Delete a profile after confirmation |
 | `cpf login work2` | Sign `work2` in to another Claude account. Other profiles keep theirs |
 | `cpf language ko` | Show screens in Korean. `en` for English, `auto` to follow the system |
 
-- The `claude` picker shows each profile's email, plan, and the 5-hour and weekly usage Claude Code last saved. Press a number to pick at once, or Esc to cancel.
+- The `claude` list shows each profile's email and its 5-hour and weekly usage. Saved values come first and are replaced with current values about a second later. Press a number to pick at once, → to open the profile screen, or Esc to cancel.
+- A yellow `!` means an MCP server in that profile is waiting for a sign-in. Press → to open the profile screen and sign in there.
 - Screens appear in Korean or English, following your terminal language (`LANG`) or system language.
 - Switching applies to the next launch. Running sessions keep their account.
 - In scripts, `claude` uses the active profile without asking.
@@ -57,6 +58,15 @@ cpf share remove skills   # Stop sharing. Each profile keeps a copy
 - Shareable: `CLAUDE.md` `keybindings.json` `skills` `agents` `rules` `hooks` `output-styles` `workflows` `themes`
 - Always per profile: sign-in, `.claude.json` (MCP servers, project trust), history, `projects`, plugins
 - A profile file with different content is never overwritten. You get a warning instead.
+- You can also turn items on and off with Space in `cpf` → Settings → Sharing.
+
+## MCP sign-in and bringing things over
+
+Pick a profile in `cpf` to open its screen, which shows its usage and MCP connections.
+
+- When a server such as Figma or Notion needs a sign-in, an item like `Sign in to notion` appears. It runs `claude mcp login` for each server in turn, so you only need to allow it in the browser.
+- `Bring over from another profile` lets you pick plugins and MCP servers that only another profile has, and installs them with `claude plugin install` and `claude mcp add-json`.
+- claude.ai connectors such as Gmail or Drive belong to the account, so they can't be brought over. Turn them on at claude.ai for each account.
 
 ## Bring in your existing account
 
@@ -85,7 +95,7 @@ Coming from `claude-account-switch` or 1.x? Run `npx ai-profile-switch@latest in
 
 ## More
 
-- [Command reference and migration details](https://ftery0.github.io/ai-profile-switch/guide/commands)
+- [Managing profiles and the full command list](https://ftery0.github.io/ai-profile-switch/guide/commands)
 - Platform guides: [macOS](docs/setup-macos.md) · [Linux](docs/setup-linux.md) · [Windows](docs/setup-windows.md)
 - To use this source checkout, run `node bin/cli.mjs install-shell` from the repository root.
 

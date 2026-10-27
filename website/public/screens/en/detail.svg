@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="742" height="318" viewBox="0 0 742 318" role="img" aria-label="cpf · personal">
+<rect width="742" height="318" rx="10" fill="#1d1f24"/>
+<circle cx="18" cy="15" r="5" fill="#3d4048"/><circle cx="34" cy="15" r="5" fill="#3d4048"/><circle cx="50" cy="15" r="5" fill="#3d4048"/>
+<text x="371" y="19" text-anchor="middle" fill="#7d828c" font-family="-apple-system, 'Segoe UI', sans-serif" font-size="12">cpf · personal</text>
+<g font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'D2Coding', 'Noto Sans Mono CJK KR', monospace" font-size="14">
+<text x="18.0" y="63" fill="#7cc9f0">◆</text>
+<text x="43.2 51.6 60.0 68.4 76.8 85.2 93.6 102.0" y="63" fill="#d6d8de" font-weight="700">personal</text>
+<text x="127.2 135.6 144.0 152.4 160.8 169.2 177.6 186.0 194.4 202.8 211.2 219.6 228.0 236.4" y="63" fill="#7d828c">me@example.com</text>
+<text x="253.2" y="63" fill="#7d828c">·</text>
+<text x="270.0 278.4 286.8" y="63" fill="#7d828c">Pro</text>
+<text x="18.0" y="84" fill="#7d828c">│</text>
+<text x="43.2 51.6 60.0 68.4 76.8" y="84" fill="#7d828c">Usage</text>
+<text x="135.6 144.0 152.4 160.8 169.2 177.6" y="84" fill="#d6d8de">5-hour</text>
+<text x="194.4 202.8 211.2" y="84" fill="#d6d8de">64%</text>
+<text x="228.0" y="84" fill="#7d828c">·</text>
+<text x="244.8 253.2 261.6 270.0 278.4 286.8" y="84" fill="#7d828c">resets</text>
+<text x="303.6 312.0 320.4 328.8 337.2" y="84" fill="#7d828c">18:26</text>
+<text x="379.2 387.6 396.0 404.4 412.8 421.2" y="84" fill="#d6d8de">Weekly</text>
+<text x="438.0 446.4 454.8" y="84" fill="#d6d8de">52%</text>
+<text x="471.6" y="84" fill="#7d828c">·</text>
+<text x="488.4 496.8 505.2 513.6 522.0 530.4" y="84" fill="#7d828c">resets</text>
+<text x="547.2 555.6 564.0 572.4 580.8 589.2 597.6" y="84" fill="#7d828c">October</text>
+<text x="614.4 622.8" y="84" fill="#7d828c">28</text>
+<text x="18.0" y="105" fill="#7d828c">│</text>
+<text x="43.2 51.6 60.0 68.4 76.8 85.2 93.6 102.0 110.4" y="105" fill="#7d828c">Connected</text>
+<text x="135.6" y="105" fill="#f2c66d">!</text>
+<text x="152.4 160.8 169.2 177.6 186.0 194.4" y="105" fill="#d6d8de">notion</text>
+<text x="18.0" y="126" fill="#7d828c">│</text>
+<text x="18.0" y="147" fill="#7d828c">│</text>
+<text x="43.2" y="147" fill="#7cc9f0">❯</text>
+<text x="60.0 68.4 76.8" y="147" fill="#7cc9f0">Use</text>
+<text x="93.6 102.0 110.4 118.8" y="147" fill="#7cc9f0">this</text>
+<text x="135.6 144.0 152.4 160.8 169.2 177.6 186.0" y="147" fill="#7cc9f0">profile</text>
+<text x="18.0" y="168" fill="#7d828c">│</text>
+<text x="60.0 68.4 76.8 85.2" y="168" fill="#d6d8de">Sign</text>
+<text x="102.0 110.4" y="168" fill="#d6d8de">in</text>
+<text x="127.2 135.6" y="168" fill="#d6d8de">to</text>
+<text x="152.4 160.8 169.2 177.6 186.0 194.4" y="168" fill="#d6d8de">notion</text>
+<text x="337.2 345.6 354.0 362.4" y="168" fill="#7d828c">just</text>
+<text x="379.2 387.6 396.0 404.4 412.8" y="168" fill="#7d828c">allow</text>
+<text x="429.6 438.0" y="168" fill="#7d828c">it</text>
+<text x="454.8 463.2" y="168" fill="#7d828c">in</text>
+<text x="480.0 488.4 496.8" y="168" fill="#7d828c">the</text>
+<text x="513.6 522.0 530.4 538.8 547.2 555.6 564.0" y="168" fill="#7d828c">browser</text>
+<text x="18.0" y="189" fill="#7d828c">│</text>
+<text x="60.0 68.4 76.8 85.2 93.6" y="189" fill="#d6d8de">Bring</text>
+<text x="110.4 118.8 127.2 135.6" y="189" fill="#d6d8de">over</text>
+<text x="152.4 160.8 169.2 177.6" y="189" fill="#d6d8de">from</text>
+<text x="194.4 202.8 211.2 219.6 228.0 236.4 244.8" y="189" fill="#d6d8de">another</text>
+<text x="261.6 270.0 278.4 286.8 295.2 303.6 312.0" y="189" fill="#d6d8de">profile</text>
+<text x="337.2" y="189" fill="#7d828c">2</text>
+<text x="354.0 362.4 370.8 379.2 387.6 396.0 404.4" y="189" fill="#7d828c">plugins</text>
+<text x="421.2" y="189" fill="#7d828c">·</text>
+<text x="438.0" y="189" fill="#7d828c">2</text>
+<text x="454.8 463.2 471.6" y="189" fill="#7d828c">MCP</text>
+<text x="488.4 496.8 505.2 513.6 522.0 530.4 538.8" y="189" fill="#7d828c">servers</text>
+<text x="555.6 564.0" y="189" fill="#7d828c">in</text>
+<text x="580.8 589.2 597.6 606.0 614.4 622.8 631.2 639.6 648.0" y="189" fill="#7d828c">work·team</text>
+<text x="18.0" y="210" fill="#7d828c">│</text>
+<text x="60.0 68.4 76.8 85.2 93.6 102.0" y="210" fill="#d6d8de">Rename</text>
+<text x="18.0" y="231" fill="#7d828c">│</text>
+<text x="60.0 68.4 76.8 85.2 93.6 102.0" y="231" fill="#d6d8de">Change</text>
+<text x="118.8 127.2 135.6 144.0 152.4 160.8" y="231" fill="#d6d8de">Claude</text>
+<text x="177.6 186.0 194.4 202.8 211.2 219.6 228.0" y="231" fill="#d6d8de">account</text>
+<text x="18.0" y="252" fill="#7d828c">│</text>
+<text x="60.0 68.4 76.8 85.2 93.6 102.0" y="252" fill="#d6d8de">Delete</text>
+<text x="18.0" y="273" fill="#7d828c">│</text>
+<text x="43.2 51.6 60.0 68.4 76.8" y="273" fill="#7d828c">Enter</text>
+<text x="93.6 102.0 110.4 118.8 127.2 135.6" y="273" fill="#7d828c">select</text>
+<text x="152.4" y="273" fill="#7d828c">·</text>
+<text x="169.2 177.6 186.0" y="273" fill="#7d828c">Esc</text>
+<text x="202.8 211.2 219.6 228.0" y="273" fill="#7d828c">back</text>
+<text x="18.0" y="294" fill="#7d828c">└</text>
+</g>
+</svg>

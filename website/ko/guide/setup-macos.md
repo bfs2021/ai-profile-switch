@@ -1,29 +1,19 @@
 ---
-title: macOS 설정 — ai-profile-switch
-description: 기존 설치 확인, 프로필 설정과 셸 복구.
-jsonLd: {"@context": "https://schema.org", "@type": "HowTo", "name": "macOS 프로필 설정", "step": [{"@type": "HowToStep", "name": "준비", "text": "Node.js 18.19+ (18계열) 또는 20.10+, npm과 기존 Claude Code 설치를 확인합니다."}, {"@type": "HowToStep", "name": "초기 설정", "text": "npx ai-profile-switch@latest init으로 프로필을 설정합니다."}, {"@type": "HowToStep", "name": "실행", "text": "새 터미널을 열고 claude를 실행합니다."}]}
+title: macOS — ai-profile-switch
+description: macOS 에서 설치할 때 알아 둘 것. 키체인 로그인과 셸 설정 파일.
 ---
 
-# macOS 설정
-
-Node.js 18.19+ (18계열) 또는 20.10+와 npm, Claude Code가 필요합니다. 기존 Claude가 있으면 재설치하지 않습니다. 없는 경우 [공식 설치 가이드](https://code.claude.com/docs/en/setup)를 따릅니다.
+# macOS
 
 ```bash
 npx ai-profile-switch@latest init
 ```
 
-새 터미널을 열고 `claude`, `cpf personal`, `claude-pick`을 사용합니다. 여러 프로필이면 실행 시 선택기가 나옵니다. 기존 초기화에서 `init`은 요약만 보여줍니다.
+끝나면 새 터미널을 열고 `claude` 를 쳐요. zsh, bash, fish 를 지원하고, 붙이는 파일은 `~/.zshrc`, `~/.bashrc`, `~/.config/fish/config.fish` 예요.
 
-## 셸 복구
+- macOS 에서는 로그인이 키체인에 저장돼요. 그래서 원래 쓰던 설정을 가져와도 로그인은 따라오지 않아요. 그 프로필로 처음 시작할 때 한 번 로그인해요.
+- 목록의 지금 사용량도 키체인에 있는 그 프로필의 로그인으로 물어봐요. 자세한 건 [작동 방식](/ko/guide/how-it-works#usage)에 있어요.
+- `claude` 나 `cpf` 가 없다고 나오면 `npx ai-profile-switch@latest install-shell` 을 실행하고 새 터미널을 열어요.
+- Claude 실행 파일을 못 찾는다고 나오면 `which claude` 와 `which node` 로 둘 다 PATH 에 있는지 봐요.
 
-```bash
-npx ai-profile-switch@latest install-shell
-```
-
-연결할 설정 파일: `~/.zshrc` (zsh), `~/.bashrc` (bash), `~/.config/fish/config.fish` (fish).
-
-실행 파일이 없다는 오류가 나면 Claude와 Node.js가 PATH에 있는지 확인합니다. 로컬 실행 파일이 없으면 위 복구 명령을 실행하고 새 터미널을 엽니다.
-
-macOS Keychain 로그인은 이관하지 않습니다. 프로필 최초 실행에서 필요한 로그인을 진행하세요.
-
-[셸 동작·훅](/ko/guide/shell-integration) · [이관·MCP·업데이트](/ko/guide/commands)
+다음: [셸 통합](/ko/guide/shell-integration) · [프로필 관리](/ko/guide/commands)

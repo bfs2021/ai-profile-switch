@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="742" height="276" viewBox="0 0 742 276" role="img" aria-label="claude">
+<rect width="742" height="276" rx="10" fill="#1d1f24"/>
+<circle cx="18" cy="15" r="5" fill="#3d4048"/><circle cx="34" cy="15" r="5" fill="#3d4048"/><circle cx="50" cy="15" r="5" fill="#3d4048"/>
+<text x="371" y="19" text-anchor="middle" fill="#7d828c" font-family="-apple-system, 'Segoe UI', sans-serif" font-size="12">claude</text>
+<g font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'D2Coding', 'Noto Sans Mono CJK KR', monospace" font-size="14">
+<text x="18.0" y="63" fill="#7cc9f0">◆</text>
+<text x="43.2 51.6 60.0 68.4 76.8" y="63" fill="#d6d8de">Which</text>
+<text x="93.6 102.0 110.4 118.8 127.2 135.6 144.0" y="63" fill="#d6d8de">profile</text>
+<text x="160.8 169.2" y="63" fill="#d6d8de">do</text>
+<text x="186.0 194.4 202.8" y="63" fill="#d6d8de">you</text>
+<text x="219.6 228.0 236.4 244.8" y="63" fill="#d6d8de">want</text>
+<text x="261.6 270.0" y="63" fill="#d6d8de">to</text>
+<text x="286.8 295.2 303.6 312.0" y="63" fill="#d6d8de">use?</text>
+<text x="18.0" y="84" fill="#7d828c">│</text>
+<text x="312.0 320.4 328.8 337.2 345.6 354.0" y="84" fill="#7d828c">5-hour</text>
+<text x="412.8 421.2 429.6 438.0 446.4 454.8" y="84" fill="#7d828c">Weekly</text>
+<rect x="313.0" y="95" width="6.4" height="10" rx="1.5" fill="#8fd694"/>
+<rect x="321.4" y="95" width="6.4" height="10" rx="1.5" fill="#3a3d45"/>
+<rect x="329.8" y="95" width="6.4" height="10" rx="1.5" fill="#3a3d45"/>
+<rect x="338.2" y="95" width="6.4" height="10" rx="1.5" fill="#3a3d45"/>
+<rect x="346.6" y="95" width="6.4" height="10" rx="1.5" fill="#3a3d45"/>
+<rect x="413.8" y="95" width="6.4" height="10" rx="1.5" fill="#8fd694"/>
+<rect x="422.2" y="95" width="6.4" height="10" rx="1.5" fill="#8fd694"/>
+<rect x="430.6" y="95" width="6.4" height="10" rx="1.5" fill="#3a3d45"/>
+<rect x="439.0" y="95" width="6.4" height="10" rx="1.5" fill="#3a3d45"/>
+<rect x="447.4" y="95" width="6.4" height="10" rx="1.5" fill="#3a3d45"/>
+<text x="18.0" y="105" fill="#7d828c">│</text>
+<text x="60.0" y="105" fill="#7d828c">1</text>
+<text x="85.2 93.6 102.0 110.4" y="105" fill="#d6d8de">work</text>
+<text x="127.2" y="105" fill="#8fd694">●</text>
+<text x="169.2 177.6 186.0 194.4 202.8 211.2 219.6 228.0 236.4 244.8 253.2 261.6 270.0 278.4 286.8" y="105" fill="#d6d8de">kim@company.com</text>
+<text x="370.8 379.2 387.6" y="105" fill="#d6d8de">23%</text>
+<text x="471.6 480.0 488.4" y="105" fill="#d6d8de">41%</text>
+<rect x="313.0" y="116" width="6.4" height="10" rx="1.5" fill="#f2c66d"/>
+<rect x="321.4" y="116" width="6.4" height="10" rx="1.5" fill="#f2c66d"/>
+<rect x="329.8" y="116" width="6.4" height="10" rx="1.5" fill="#f2c66d"/>
+<rect x="338.2" y="116" width="6.4" height="10" rx="1.5" fill="#3a3d45"/>
+<rect x="346.6" y="116" width="6.4" height="10" rx="1.5" fill="#3a3d45"/>
+<rect x="413.8" y="116" width="6.4" height="10" rx="1.5" fill="#f2c66d"/>
+<rect x="422.2" y="116" width="6.4" height="10" rx="1.5" fill="#f2c66d"/>
+<rect x="430.6" y="116" width="6.4" height="10" rx="1.5" fill="#f2c66d"/>
+<rect x="439.0" y="116" width="6.4" height="10" rx="1.5" fill="#3a3d45"/>
+<rect x="447.4" y="116" width="6.4" height="10" rx="1.5" fill="#3a3d45"/>
+<text x="18.0" y="126" fill="#7d828c">│</text>
+<text x="43.2" y="126" fill="#7cc9f0">❯</text>
+<text x="60.0" y="126" fill="#7cc9f0">2</text>
+<text x="85.2 93.6 102.0 110.4 118.8 127.2 135.6 144.0" y="126" fill="#7cc9f0">personal</text>
+<text x="169.2 177.6 186.0 194.4 202.8 211.2 219.6 228.0 236.4 244.8 253.2 261.6 270.0 278.4" y="126" fill="#d6d8de">me@example.com</text>
+<text x="370.8 379.2 387.6" y="126" fill="#d6d8de">64%</text>
+<text x="471.6 480.0 488.4" y="126" fill="#d6d8de">52%</text>
+<text x="513.6" y="126" fill="#f2c66d">!</text>
+<rect x="313.0" y="137" width="6.4" height="10" rx="1.5" fill="#7d828c"/>
+<rect x="321.4" y="137" width="6.4" height="10" rx="1.5" fill="#7d828c"/>
+<rect x="329.8" y="137" width="6.4" height="10" rx="1.5" fill="#7d828c"/>
+<rect x="338.2" y="137" width="6.4" height="10" rx="1.5" fill="#7d828c"/>
+<rect x="346.6" y="137" width="6.4" height="10" rx="1.5" fill="#3a3d45"/>
+<rect x="413.8" y="137" width="6.4" height="10" rx="1.5" fill="#7d828c"/>
+<rect x="422.2" y="137" width="6.4" height="10" rx="1.5" fill="#7d828c"/>
+<rect x="430.6" y="137" width="6.4" height="10" rx="1.5" fill="#7d828c"/>
+<rect x="439.0" y="137" width="6.4" height="10" rx="1.5" fill="#7d828c"/>
+<rect x="447.4" y="137" width="6.4" height="10" rx="1.5" fill="#3a3d45"/>
+<text x="18.0" y="147" fill="#7d828c">│</text>
+<text x="60.0" y="147" fill="#7d828c">3</text>
+<text x="85.2 93.6 102.0 110.4" y="147" fill="#d6d8de">team</text>
+<text x="169.2 177.6 186.0 194.4 202.8 211.2 219.6 228.0 236.4 244.8 253.2 261.6 270.0 278.4 286.8" y="147" fill="#d6d8de">lee@company.com</text>
+<text x="370.8 379.2 387.6" y="147" fill="#7d828c">88%</text>
+<text x="471.6 480.0 488.4" y="147" fill="#7d828c">77%</text>
+<text x="18.0" y="168" fill="#7d828c">│</text>
+<text x="60.0" y="168" fill="#7d828c">4</text>
+<text x="85.2 93.6 102.0 110.4" y="168" fill="#d6d8de">side</text>
+<text x="169.2 177.6 186.0" y="168" fill="#7d828c">not</text>
+<text x="202.8 211.2 219.6 228.0 236.4 244.8" y="168" fill="#7d828c">signed</text>
+<text x="261.6 270.0" y="168" fill="#7d828c">in</text>
+<text x="18.0" y="189" fill="#7d828c">│</text>
+<text x="18.0" y="210" fill="#7d828c">│</text>
+<text x="43.2" y="210" fill="#f2c66d">!</text>
+<text x="60.0 68.4 76.8 85.2 93.6 102.0 110.4" y="210" fill="#f2c66d">Sign-in</text>
+<text x="127.2 135.6 144.0 152.4 160.8 169.2 177.6" y="210" fill="#f2c66d">needed:</text>
+<text x="194.4 202.8 211.2 219.6 228.0 236.4" y="210" fill="#f2c66d">notion</text>
+<text x="261.6" y="210" fill="#7d828c">→</text>
+<text x="278.4 286.8" y="210" fill="#7d828c">to</text>
+<text x="303.6 312.0" y="210" fill="#7d828c">do</text>
+<text x="328.8 337.2" y="210" fill="#7d828c">it</text>
+<text x="354.0 362.4 370.8 379.2" y="210" fill="#7d828c">here</text>
+<text x="18.0" y="231" fill="#7d828c">│</text>
+<text x="43.2 51.6 60.0 68.4 76.8" y="231" fill="#7d828c">Enter</text>
+<text x="93.6 102.0 110.4 118.8 127.2" y="231" fill="#7d828c">start</text>
+<text x="144.0" y="231" fill="#7d828c">·</text>
+<text x="160.8" y="231" fill="#7d828c">→</text>
+<text x="177.6 186.0 194.4 202.8 211.2 219.6 228.0" y="231" fill="#7d828c">details</text>
+<text x="244.8" y="231" fill="#7d828c">·</text>
+<text x="261.6 270.0 278.4" y="231" fill="#7d828c">Esc</text>
+<text x="295.2 303.6 312.0 320.4 328.8 337.2" y="231" fill="#7d828c">cancel</text>
+<text x="18.0" y="252" fill="#7d828c">└</text>
+</g>
+</svg>

@@ -1,29 +1,22 @@
 ---
-title: Windows 설정 — ai-profile-switch
-description: 기존 설치 확인, 프로필 설정과 셸 복구.
-jsonLd: {"@context": "https://schema.org", "@type": "HowTo", "name": "Windows 프로필 설정", "step": [{"@type": "HowToStep", "name": "준비", "text": "Node.js 18.19+ (18계열) 또는 20.10+, npm과 기존 Claude Code 설치를 확인합니다."}, {"@type": "HowToStep", "name": "초기 설정", "text": "npx ai-profile-switch@latest init으로 프로필을 설정합니다."}, {"@type": "HowToStep", "name": "실행", "text": "새 터미널을 열고 claude를 실행합니다."}]}
+title: Windows — ai-profile-switch
+description: Windows PowerShell 에서 설치할 때 알아 둘 것. 프로필 파일, 실행 정책, 링크.
 ---
 
-# Windows 설정
+# Windows
 
-Node.js 18.19+ (18계열) 또는 20.10+와 npm, Claude Code가 필요합니다. 기존 Claude가 있으면 재설치하지 않습니다. 없는 경우 [공식 설치 가이드](https://code.claude.com/docs/en/setup)를 따릅니다.
+PowerShell 에서 실행해요.
 
 ```powershell
 npx ai-profile-switch@latest init
 ```
 
-새 터미널을 열고 `claude`, `cpf personal`, `claude-pick`을 사용합니다. 여러 프로필이면 실행 시 선택기가 나옵니다. 기존 초기화에서 `init`은 요약만 보여줍니다.
+끝나면 새 PowerShell 창을 열고 `claude` 를 쳐요.
 
-## 셸 복구
+- PowerShell 5.1 과 PowerShell 7 의 프로필 파일에 둘 다 붙여요. OneDrive 로 옮긴 문서 폴더도 찾아가고, 원래 파일의 내용과 인코딩은 그대로 둬요.
+- 실행 정책 때문에 프로필 파일이 안 불러와지면 PC 나 회사의 실행 정책을 확인해요. `$PROFILE` 로 어느 파일인지 볼 수 있어요.
+- 같이 쓰는 폴더는 junction 으로 연결해요. 파일 링크는 개발자 모드가 꺼져 있으면 만들 수 없어서, 그때는 복사하고 알려 줘요. 복사한 파일은 한쪽을 고쳐도 다른 쪽이 바뀌지 않아요.
+- WSL 에서 쓰려면 [Linux · WSL](/ko/guide/setup-linux)을 따라 WSL 안에서 따로 설치해요.
+- `claude` 나 `cpf` 가 없다고 나오면 `npx ai-profile-switch@latest install-shell` 을 실행하고 새 창을 열어요.
 
-```powershell
-npx ai-profile-switch@latest install-shell
-```
-
-Windows의 Documents 폴더 아래 PowerShell 5.1과 PowerShell 7 콘솔 프로필을 모두 연결합니다. OneDrive 등으로 이동한 Documents 폴더도 처리하며, 기존 프로필의 내용과 인코딩을 보존합니다.
-
-실행 파일이 없다는 오류가 나면 Claude와 Node.js가 PATH에 있는지 확인합니다. 로컬 실행 파일이 없으면 위 복구 명령을 실행하고 새 터미널을 엽니다.
-
-PowerShell의 `$PROFILE`과 설치 위치를 확인하세요. 실행 정책·회사 정책으로 프로필 로딩이 차단되면 해당 정책 안내를 따릅니다. Developer Mode 없이 파일 링크 생성에 실패하면 복사하며, 디렉터리는 junction으로 연결합니다. 복사된 설정 파일은 자동 동기화되지 않습니다. WSL은 [Linux 가이드](/ko/guide/setup-linux)를 따릅니다.
-
-[셸 동작·훅](/ko/guide/shell-integration) · [이관·MCP·업데이트](/ko/guide/commands)
+다음: [셸 통합](/ko/guide/shell-integration) · [프로필 관리](/ko/guide/commands)

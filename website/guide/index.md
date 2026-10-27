@@ -1,46 +1,60 @@
 ---
-title: Quick Start — ai-profile-switch
-description: Profile setup and safe migration using your existing Claude installation.
-jsonLd: {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Should I run init if Claude is already installed?", "acceptedAnswer": {"@type": "Answer", "text": "Run it for first profile setup. Existing profiles are summarized without changes."}}, {"@type": "Question", "name": "Does it work after the npx cache is deleted?", "acceptedAnswer": {"@type": "Answer", "text": "The installed local runtime remains usable. Node.js and Claude Code are still required."}}, {"@type": "Question", "name": "Does migration copy the login?", "acceptedAnswer": {"@type": "Answer", "text": "File credentials are copied only into the selected profile. macOS Keychain is not copied; Claude checks authentication."}}]}
+title: Getting started — ai-profile-switch
+description: Install, create profiles, and start Claude Code with the one you pick.
 ---
 
-# Quick Start
+# Getting started
 
-This tool adds profile selection and configuration import to Claude Code's [separate configuration directories](https://code.claude.com/docs/en/iam#log-in-with-multiple-accounts).
+You need Node.js 18.19 or later on 18.x, or 20.10 or later, and Claude Code. If you don't have Claude Code yet, follow the [official setup guide](https://code.claude.com/docs/en/setup) first.
 
-With Node.js 18.19+ (18.x) or 20.10+ and Claude Code available, run:
+## Install
 
 ```bash
 npx ai-profile-switch@latest init
 ```
 
-1. Choose profile names and the active profile.
-2. Choose whether to share `settings.json` and `commands/`.
-3. Copy one detected existing configuration into one profile, or skip.
-4. Open a new terminal and run `claude`. Claude handles login if needed.
+It asks a few things in order.
+
+1. The profiles to create. Separate the names with commas, like `work, personal`.
+2. Which profile to start with. Only asked when you enter more than one name.
+3. Whether all profiles share `settings.json` and `commands`.
+4. Which profile gets a copy of your current Claude settings (`~/.claude`). You can skip this.
+
+When it's done, open a new terminal. You now have the `claude` and `cpf` commands.
+
+## Pick a profile and start
+
+![The claude profile list](/screens/en/launch.svg)
+
+Run `claude` and this list appears. Move with ↑↓ and press Enter, or press the number. Esc cancels.
+
+- The green `●` marks the default profile. It's the one you picked last, and the cursor starts there next time.
+- The bars are 5-hour and weekly usage. The list shows saved values first and switches to current values about a second later. A profile whose current values couldn't be fetched stays dim.
+- A yellow `!` means an MCP server in that profile is waiting for a sign-in. Press → to open the profile screen and sign in from there.
+
+The first time you use a profile, Claude asks you to sign in. Sign in with the account you want for that profile and you're done.
+
+## Add another account
 
 ```bash
-cpf personal
+cpf add work2
 claude
-claude-pick
 ```
 
-Already initialized? `init` only shows the current setup. Run `npx ai-profile-switch@latest install-shell` to repair or refresh shell integration.
+Pick `work2` in the list and sign in with the new account when Claude asks. "Add a profile" in `cpf` does the same thing.
 
-## FAQ
+## Common questions
 
-### Should I run init if Claude is already installed?
+**What happens to my existing `~/.claude`?**
+It stays where it is. If you chose to import it during `init`, a copy goes into the profile. To import it later, see [Managing profiles](/guide/commands#bring-in-your-existing-settings).
 
-Run it for first profile setup. Existing profiles are summarized without changes.
+**Is my sign-in copied too?**
+Not on macOS, where the sign-in lives in the Keychain. Sign in once the first time you start that profile. On other systems, a sign-in stored in a file is copied only into the profile you imported into.
 
+**I typed `cpf` in a Claude chat and nothing happened.**
+`cpf` and `claude` are terminal commands. Leave the chat with `/exit` and type them in the terminal.
 
-### Does it work after the npx cache is deleted?
+**Can I clear the npx cache?**
+Yes. Setup copies the program to `~/.claude-profiles/_runtime`.
 
-The installed local runtime remains usable. Node.js and Claude Code are still required.
-
-
-### Does migration copy the login?
-
-File credentials are copied only into the selected profile. macOS Keychain is not copied; Claude checks authentication.
-
-[Installation](/guide/installation) · [Commands and migration](/guide/commands) · [Shell integration](/guide/shell-integration)
+Next: [Managing profiles](/guide/commands) · [Shell integration](/guide/shell-integration)

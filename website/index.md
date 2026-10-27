@@ -1,7 +1,7 @@
 ---
 layout: home
-title: ai-profile-switch — Multi-account Profile Manager for Claude Code
-description: Manage multiple Claude Code accounts with ease. Switch between work and personal profiles instantly using CLAUDE_CONFIG_DIR.
+title: ai-profile-switch — several Claude Code accounts on one computer
+description: Keep a work account and a personal account on one computer, and pick one each time you run claude.
 jsonLd:
   "@context": "https://schema.org"
   "@type": "SoftwareApplication"
@@ -12,7 +12,7 @@ jsonLd:
     "@type": "Offer"
     price: "0"
     priceCurrency: "USD"
-  description: "Multi-account profile manager for Claude Code. Switch between work and personal accounts instantly."
+  description: "Keeps several Claude Code accounts on one computer as separate profiles."
   url: "https://ftery0.github.io/ai-profile-switch/"
   downloadUrl: "https://www.npmjs.com/package/ai-profile-switch"
   author:
@@ -22,27 +22,27 @@ jsonLd:
 
 hero:
   name: ai-profile-switch
-  text: Multi-account Profile Manager for Claude Code
-  tagline: Switch between work and personal Claude Code accounts instantly. Zero dependencies.
+  text: Several Claude Code accounts on one computer
+  tagline: Run claude and pick the account to start with. Sign-in, history, and settings stay separate for each profile.
   actions:
     - theme: brand
-      text: Get Started
+      text: Get started
       link: /guide/
     - theme: alt
-      text: View on GitHub
+      text: GitHub
       link: https://github.com/ftery0/ai-profile-switch
-
-features:
-  - title: One-Command Setup
-    details: Create profiles, safely import existing configuration and install the local shell runtime.
-  - title: Instant Profile Switching
-    details: Use cpf <name> to switch profiles in milliseconds. No restart needed.
-  - title: Zero Dependencies
-    details: Uses only Node.js built-in modules for instant npx startup. No bloat.
-  - title: Cross-Platform
-    details: Works on macOS, Linux, and Windows (native + WSL). Supports zsh, bash, fish, and PowerShell.
-  - title: Shared Settings
-    details: Settings and custom commands are shared across all profiles via symlinks.
-  - title: Interactive Picker
-    details: Use claude-pick to select profiles with arrow-key navigation.
 ---
+
+![The profile list that opens when you run claude, with each profile's email and its 5-hour and weekly usage](/screens/en/launch.svg)
+
+Claude Code keeps accounts apart if you give each one its own folder with `CLAUDE_CONFIG_DIR`. Typing that every time gets old, so this tool does it for you.
+
+- Run `claude` and you get the list above. Check the email and the 5-hour and weekly usage, pick one, and Claude Code starts with that account.
+- `cpf` opens the same list for managing profiles. Add one, rename it, sign in again, or bring over plugins and MCP servers from another profile.
+- Each profile is one folder under `~/.claude-profiles`. You choose what they share, such as `CLAUDE.md` or skills.
+
+```bash
+npx ai-profile-switch@latest init
+```
+
+You need Node.js 18.19 or later (or 20.10 or later) and Claude Code. It works on macOS, Linux, and Windows.

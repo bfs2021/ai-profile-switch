@@ -7,18 +7,18 @@ function guideSidebar(prefix = '') {
     {
       text: prefix ? '가이드' : 'Guide',
       items: [
-        { text: prefix ? '빠른 시작' : 'Quick Start', link: `${prefix}/guide/` },
+        { text: prefix ? '시작하기' : 'Getting started', link: `${prefix}/guide/` },
         { text: prefix ? '설치' : 'Installation', link: `${prefix}/guide/installation` },
-        { text: prefix ? '명령어 레퍼런스' : 'Commands', link: `${prefix}/guide/commands` },
-        { text: prefix ? '셸 통합' : 'Shell Integration', link: `${prefix}/guide/shell-integration` },
-        { text: prefix ? '작동 방식' : 'How It Works', link: `${prefix}/guide/how-it-works` },
+        { text: prefix ? '프로필 관리' : 'Managing profiles', link: `${prefix}/guide/commands` },
+        { text: prefix ? '셸 통합' : 'Shell integration', link: `${prefix}/guide/shell-integration` },
+        { text: prefix ? '작동 방식' : 'How it works', link: `${prefix}/guide/how-it-works` },
       ],
     },
     {
-      text: prefix ? '플랫폼별 설정' : 'Platform Setup',
+      text: prefix ? '플랫폼별 설정' : 'Platform setup',
       items: [
         { text: 'macOS', link: `${prefix}/guide/setup-macos` },
-        { text: 'Linux', link: `${prefix}/guide/setup-linux` },
+        { text: 'Linux · WSL', link: `${prefix}/guide/setup-linux` },
         { text: 'Windows', link: `${prefix}/guide/setup-windows` },
       ],
     },
@@ -27,7 +27,7 @@ function guideSidebar(prefix = '') {
 
 export default defineConfig({
   title: 'ai-profile-switch',
-  description: 'Multi-account profile manager for Claude Code',
+  description: 'Several Claude Code accounts on one computer',
   cleanUrls: true,
   base: '/ai-profile-switch/',
 
@@ -59,7 +59,7 @@ export default defineConfig({
     ko: {
       label: '한국어',
       lang: 'ko',
-      description: 'Claude Code를 위한 멀티 계정 프로필 관리 도구',
+      description: '한 컴퓨터에서 Claude Code 계정 여러 개 쓰기',
       themeConfig: {
         nav: [
           { text: '가이드', link: '/ko/guide/' },

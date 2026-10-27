@@ -1,29 +1,19 @@
 ---
-title: macOS Setup — ai-profile-switch
-description: Existing installation checks, profile setup and shell repair.
-jsonLd: {"@context": "https://schema.org", "@type": "HowTo", "name": "macOS profile setup", "step": [{"@type": "HowToStep", "name": "Prerequisites", "text": "Check Node.js 18.19+ (18.x) or 20.10+, npm and your existing Claude Code installation."}, {"@type": "HowToStep", "name": "Setup", "text": "Run npx ai-profile-switch@latest init to configure profiles."}, {"@type": "HowToStep", "name": "Launch", "text": "Open a new terminal and run claude."}]}
+title: macOS — ai-profile-switch
+description: What to know when installing on macOS, including Keychain sign-in and shell config files.
 ---
 
-# macOS Setup
-
-Use Node.js 18.19+ (18.x) or 20.10+, npm and Claude Code. Keep your existing Claude installation; if missing, follow the [official installation guide](https://code.claude.com/docs/en/setup).
+# macOS
 
 ```bash
 npx ai-profile-switch@latest init
 ```
 
-Open a new terminal and use `claude`, `cpf personal` and `claude-pick`. Multiple profiles show a picker on interactive launch. Existing setups get a summary when `init` is repeated.
+When it's done, open a new terminal and type `claude`. zsh, bash, and fish work, and the files it edits are `~/.zshrc`, `~/.bashrc`, and `~/.config/fish/config.fish`.
 
-## Shell repair
+- On macOS the sign-in is kept in the Keychain, so importing your existing settings doesn't bring it along. Sign in once the first time you start that profile.
+- Current usage in the list is also fetched with that profile's sign-in from the Keychain. See [How it works](/guide/how-it-works#usage).
+- If `claude` or `cpf` isn't found, run `npx ai-profile-switch@latest install-shell` and open a new terminal.
+- If it can't find the Claude program, check that both are on your PATH with `which claude` and `which node`.
 
-```bash
-npx ai-profile-switch@latest install-shell
-```
-
-Configuration locations: `~/.zshrc` (zsh), `~/.bashrc` (bash), `~/.config/fish/config.fish` (fish).
-
-If an executable is missing, check that Claude and Node.js are on PATH. For a missing local runtime, run the repair command above and open a new terminal.
-
-macOS Keychain login is not imported. Complete any login requested on first profile launch.
-
-[Shell behavior and hooks](/guide/shell-integration) · [Migration, MCP and updates](/guide/commands)
+Next: [Shell integration](/guide/shell-integration) · [Managing profiles](/guide/commands)

@@ -1,122 +1,119 @@
 ---
-title: Commands and Migration — ai-profile-switch
-description: Profile management, safe import and version 2 compatibility.
+title: Managing profiles — ai-profile-switch
+description: Adding profiles, MCP sign-in, bringing over plugins and servers, and sharing in the cpf screen, plus the command list.
 ---
 
-# Commands and Migration
+# Managing profiles
 
-These instructions describe the repository source. The management menu and renaming need this source or a release containing them; the currently published npm package may not include them. To use this checkout, run `node bin/cli.mjs install-shell` from the repository root and open a new terminal.
+Run `cpf` to open the profile list. It's the same list as `claude`, but Enter opens the profile screen instead of starting Claude.
 
-## Manage profiles with cpf
+![The cpf home screen](/screens/en/home.svg)
 
-Enter `cpf` at the **terminal shell prompt** (`%` or `$`) to open the interactive menu. If Claude's chat is open, enter `/exit` **in Claude** first and wait for the terminal prompt. Typing `cpf` in Claude's chat sends a message instead of running a shell command.
+- Under the list are "Add a profile" and "Settings". Settings holds sharing and the screen language.
+- The line under the list is about the highlighted profile, such as a server that needs a sign-in or how old the usage numbers are.
+- Esc quits.
 
-Choose list, switch, add, rename, remove, or exit with ↑/↓ and Enter. The menu stays open after an action; choose Exit when finished. Profile management does not launch Claude; run `claude` at the terminal when you want to start a session.
+`cpf` and `claude` are terminal commands. If you're in a Claude chat, leave it with `/exit` first.
 
-| Copyable command | Behavior |
+## The profile screen
+
+![The profile screen](/screens/en/detail.svg)
+
+The two lines at the top are usage and connections. Usage also shows when each limit resets. In the connections line, `✓` is an MCP server with no sign-in problem and a yellow `!` is one that needs a sign-in.
+
+| Item | What it does |
 | --- | --- |
-| `cpf` | Open the management menu |
-| `cpf work` | Make `work` active without launching Claude |
-| `cpf --list` | Show profiles and active selection |
-| `cpf add work2` | Create `work2`; select it on the next `claude` launch and sign in |
-| `cpf rename wrok2 work2` | Rename `wrok2` to `work2` |
-| `cpf remove work2` | Delete `work2` after confirmation |
-| `cpf login work2` | Sign `work2` in to another Claude account with `claude auth login` |
-| `cpf language ko` | Show screens in Korean; `en` for English, `auto` to follow the system |
-| `cpf --help` | Show command usage |
+| Use this profile | Makes it the default. The next `claude` starts with the cursor here. Hidden when it's already the default. |
+| Sign in to notion | Runs `claude mcp login` for each server that needs a sign-in. Only shown when needed. |
+| Bring over from another profile | Adds plugins and MCP servers that only another profile has. The hint says what differs. |
+| Rename | Sign-in, history, and settings stay. Close Claude windows using that profile first. |
+| Change Claude account | Signs only this profile in to another account with `claude auth login`. Other profiles stay as they are. |
+| Delete | Asks once more, then deletes. Sign-in and history go with it and can't be restored. |
 
-Replace the example names with yours. A single argument is always a profile name: `cpf add`, `cpf rename`, `cpf remove`, and `cpf list` select profiles with those names. Listing uses `cpf --list` to avoid conflicting with a profile called `list`. Use explicit commands in scripts; the menu needs an interactive terminal.
+Esc or ← goes back to the list, with the cursor still on the profile you were looking at.
 
-Creating a profile does not sign in or switch to it. For another account:
+### MCP sign-in
 
-```bash
-cpf add work2
-claude
-```
+MCP servers that need a sign-in, like Figma or Notion, are signed in separately for each profile. Choose "Sign in to …" and a browser opens for each server in turn. Just allow it.
 
-Select `work2` and sign in to the intended account when Claude asks. Switching affects future launches; existing Claude sessions keep their profile.
+Sign-ins aren't copied from other profiles, on purpose. A sign-in changes every time it refreshes, so a copy would soon log one side out.
 
-## Rename a profile
+Claude Code clears its "needs sign-in" mark only after it actually connects to the server. So when you sign in here, cpf remembers it and hides the `!` until you open Claude with that profile again.
 
-Close every Claude session using the profile, then correct its name:
+### Bring over from another profile
 
-```bash
-cpf rename wrok2 work2
-```
+![Bringing over plugins and MCP servers](/screens/en/import.svg)
 
-The profile's history, settings, list position, and active selection are preserved. An existing destination is rejected. The configuration path changes, so macOS may require login again. Start a new session after renaming.
+When more than one profile has something this one lacks, you first choose which profile to bring over from. Then pick items with Space and press Enter.
 
-Names use lowercase letters, digits and hyphens, up to 30 characters, and start/end with a letter or digit. `_shared` and `default` are reserved.
+Installing goes through Claude Code's own commands (`claude plugin install`, `claude mcp add-json -s user`), so it's recorded the same as if you had installed it yourself.
 
-## Full CLI
+- Plugins that are turned off in the other profile aren't listed.
+- claude.ai connectors such as Gmail or Drive belong to the account, so they can't be brought over. Turn them on at claude.ai for each account.
+- MCP servers added for a single project aren't brought over.
 
-These examples run the source checkout from its root. For a released version, replace `node bin/cli.mjs` with `npx ai-profile-switch@latest`, or use `ai-profile-switch` with a global installation.
+## Sharing
 
-| Copyable command | Behavior |
+![Sharing](/screens/en/share.svg)
+
+In Settings → Sharing, turn items on or off with Space, then press Enter. What you turn on is kept once in `~/.claude-profiles/_shared`, and every profile uses it through a link.
+
+- `settings.json` and `commands` are always shared. If you chose not to share them during setup, these items can't be turned on either.
+- Turning an item off leaves a copy in each profile. Nothing is deleted.
+- If a profile already has a different file there, it isn't overwritten. You're told about it instead.
+- MCP servers, sign-ins, history, and plugins belong to each account and can't be shared.
+
+## From the command line
+
+Everything also works as a command, without opening the screen. Use these in scripts.
+
+| Command | What it does |
 | --- | --- |
-| `node bin/cli.mjs manage` | Open the same menu as `cpf` |
-| `node bin/cli.mjs manage --list` | List profiles through the management interface |
-| `node bin/cli.mjs init` | First setup wizard; summary if profiles already exist |
-| `node bin/cli.mjs add work2` | Create a profile |
-| `node bin/cli.mjs rename wrok2 work2` | Rename a profile |
-| `node bin/cli.mjs remove work2` | Delete a profile after confirmation |
-| `node bin/cli.mjs list` | Show profiles and active selection |
-| `node bin/cli.mjs use work` | Change active profile |
-| `node bin/cli.mjs migrate work --from ~/.claude` | Copy configuration into an existing profile |
-| `node bin/cli.mjs install-shell` | Install, repair, or refresh shell commands and the local runtime |
-| `node bin/cli.mjs update --check` | Check for a published update without installing |
-| `node bin/cli.mjs update` | Update the local runtime |
-| `node bin/cli.mjs mcp list` | Read legacy MCP server names and file paths |
-| `node bin/cli.mjs rename --help` | Show help without changing files |
+| `cpf` | Open the profile list |
+| `cpf work` | Make `work` the default profile. Doesn't start Claude |
+| `cpf --list` | List profiles and the default |
+| `cpf add work2` | Create a profile |
+| `cpf rename wrok2 work2` | Rename |
+| `cpf remove work2` | Delete after confirming |
+| `cpf login work2` | Sign only `work2` in to another Claude account |
+| `cpf share` | What's shared, and whether each profile matches |
+| `cpf share add skills` | Share skills. `remove` stops sharing |
+| `cpf language en` | Screen language. `ko` for Korean, `auto` follows the system |
 
-`manage` accepts the same arguments as `cpf`, for example `node bin/cli.mjs manage rename wrok2 work2`. All commands accept `--help` without running the action; unsupported options and extra arguments fail before making changes. `claude --help` remains Claude Code's own help.
+A single argument is always read as a profile name. So `cpf add` switches to a profile named `add`, and the list is `cpf --list`.
 
-## Import an existing configuration
+Without the shell commands, put the command after `npx ai-profile-switch@latest`. For example, `npx ai-profile-switch@latest manage rename wrok2 work2` does the same as `cpf rename wrok2 work2`. Add `--help` to any command to see its usage without changing anything.
 
-To run the original Claude CLI without importing a profile, use `command claude` at a Bash/zsh terminal prompt to bypass the wrapper. It uses Claude's normal configuration; if you have set `CLAUDE_CONFIG_DIR` separately, that path applies.
+Profile names use lowercase letters, digits, and `-`, up to 30 characters. They start and end with a letter or digit, and `_shared` and `default` are taken.
 
-Creating a profile or installing shell integration does not automatically copy your normal `~/.claude` account or sign in. During first-time `init`, choose the existing configuration source and the destination profile when prompted. If you already have profiles, `init` only shows a summary; use explicit migration.
+## Bring in your existing settings
 
-1. Enter `/exit` in every Claude session using the source or destination before copying.
-2. At the terminal, run `cpf --list` and choose the destination name. If you need a new profile, run `cpf add work` first. Replace `work` below with your chosen name.
-3. From the repository root at the terminal, run the command and confirm the copy:
-
-   ```bash
-   node bin/cli.mjs migrate work --from ~/.claude
-   ```
-
-4. At the terminal, run `claude`, select `work`, and sign in to the intended account if asked.
-
-For a published version, the equivalent command is `npx ai-profile-switch@latest migrate work --from ~/.claude`. The fixes in this source checkout require installing or running this source until a release includes them.
-
-The default source combines `~/.claude` with the separate `~/.claude.json`. A configured `CLAUDE_CONFIG_DIR` is also detected with its own `.claude.json`. Use `--from` for a custom directory. The source files remain unchanged.
-
-Import preserves settings, commands, projects, plugins, plans, skills, agents, rules, hooks, and `CLAUDE.md`. It also copies keyboard shortcuts, file history, output styles, agent memory, workflows, themes, and tasks. Symlinks retain their original targets. File credentials are copied with restricted permissions into only the chosen profile. macOS Keychain is not migrated, so Claude may require login again. Copying `.claude.json` alone does not establish login status.
-
-Equal or nested source/target paths are rejected. Different existing target or shared data stops import with a conflict path. Invalid JSON is never treated as empty configuration. If destination or shared data changes while preparing the copy, the detected change stops replacement instead of overwriting it. Keep Claude sessions using the source and destination closed until copying finishes.
-
-When existing destination or shared data is replaced, its previous copy remains at the backup path printed after success. This is separate from the untouched source. Keep that backup until you have checked the migrated profile.
-
-## MCP compatibility
-
-Version 2 removes the separate MCP editor. `mcp` and `mcp list` only show legacy server names and file paths, without URLs, tokens or environment values. Former `add/remove/enable/disable` calls fail without modifying files.
-
-Register the servers you need with the official CLI under the selected profile. Old entries are not automatically converted or deleted.
+If you skipped it during `init`, or want to do it later, close every Claude window using the original settings or the target profile, then run:
 
 ```bash
-cpf work
-claude mcp add --transport http example --scope user https://example.com/mcp
-claude mcp list
+npx ai-profile-switch@latest migrate work --from ~/.claude
 ```
 
-Do not assume legacy `mcpServers` in shared settings applies across accounts. User/local scope uses Claude's user configuration; project scope uses `.mcp.json`. See the [official MCP guide](https://code.claude.com/docs/en/mcp).
+- `~/.claude` and `~/.claude.json` come over together. If you were using your own `CLAUDE_CONFIG_DIR`, pass that folder to `--from`. The originals aren't touched.
+- Settings, commands, projects, plugins, skills, agents, rules, hooks, `CLAUDE.md`, key bindings, output styles, and the like are copied. Caches and temporary records Claude creates are left behind.
+- If the profile already has different data, nothing is copied and you're told where they overlap. If anything gets overwritten, the original data stays at the backup path shown at the end.
+- A sign-in in the macOS Keychain doesn't move. Sign in once more the first time.
 
-## Update compatibility
+## Updates
 
-`update` and `update --self` install a verified compatible version of this tool into a separate local runtime directory. Existing sessions keep their old files. `--yes` is accepted for compatibility. `--check` never installs and exits 0 when current, 1 for a newer version, or 2 if the check fails.
+The shell commands check for a new version in the background once a day and use it from the next run. Sessions that are already open stay as they are.
 
-Legacy `--claude-code` prints [official update guidance](https://code.claude.com/docs/en/setup#update-manually). It does not check Claude's version, so `--claude-code --check` exits 2. Update Claude using `claude update` or your installation's package manager.
+```bash
+npx ai-profile-switch@latest update           # update now
+npx ai-profile-switch@latest update --check   # check only: 0 up to date, 1 newer version, 2 check failed
+npx ai-profile-switch@latest install-shell    # repair the shell commands
+```
 
-Interactive launches automatically check and update this tool once daily in the background. New launches use the verified version; account data, harness hooks and shell profiles remain untouched. Noninteractive launches do not update. Set `CLAUDE_SWITCH_DISABLE_AUTO_UPDATE=1` to disable this. Failed checks retry after an hour; failed downloads retain the installed runtime. Node.js and npm are required, and packages with incompatible runtime protocols or Node requirements are rejected.
+- To turn off automatic updates, set `CLAUDE_SWITCH_DISABLE_AUTO_UPDATE=1`.
+- Updates don't touch sign-ins, history, or shell config files. If a download fails, the current version keeps working.
+- Update Claude Code itself with `claude update`. This tool doesn't update Claude Code.
+- Coming from 1.x or `claude-account-switch`, run `install-shell` once and open a new terminal.
 
-Users of 1.x run `npx ai-profile-switch@latest install-shell` once and open a new terminal to enable this runtime. Daily shell usage does not need a global installation. An independently installed global command is not automatically updated.
+## Old MCP settings
+
+Since version 2, cpf doesn't edit MCP servers. Add servers with `claude mcp add`, and sign in from the profile screen above. `npx ai-profile-switch@latest mcp list` only shows the server names and file locations saved by older versions. It never prints addresses, tokens, or environment values. See the [official MCP guide](https://code.claude.com/docs/en/mcp) for more.
